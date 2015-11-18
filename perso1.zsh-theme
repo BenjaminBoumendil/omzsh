@@ -27,6 +27,10 @@ function hg_prompt_info {
 patches: <patches|join( → )|pre_applied(%{$fg[yellow]%})|post_applied(%{$reset_color%})|pre_unapplied(%{$fg_bold[black]%})|post_unapplied(%{$reset_color%})>>" 2>/dev/null
 }
 
+function return_code {
+    echo $?
+}
+
 # local time, color coded by last return code
 time_enabled="%(?.%{$fg[blue]%}.%{$fg[blue]%})%*%{$reset_color%}"
 time_disabled="%{$fg[red]%}%*%{$reset_color%}"
@@ -41,7 +45,7 @@ PROMPT='
 ╭─[${time}]➟ %{$fg[magenta]%}%n%{$reset_color%}@%{$fg[yellow]%}%m%{$reset_color%} in %{$fg_bold[cyan]%}$(collapse_pwd)%{$reset_color%}
 ╰─➤ '
 
-RPROMPT='$(virtualenv_info)⚒$(hg_prompt_info)$(git_prompt_info)'
+RPROMPT='%{$fg[red]%}[$(return_code)]%{$reset_color%} $(virtualenv_info)⚒$(git_prompt_info)'
 
 ZSH_THEME_GIT_PROMPT_PREFIX=" on %{$fg[magenta]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
